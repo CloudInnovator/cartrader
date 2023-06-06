@@ -1,27 +1,25 @@
 <script setup>
 
+
 const route = useRoute()
+
+
+const { car } =  await useFetchCar(route.params.id);
+
+
+console.log(car +"car")
 const { toTitleCase } = useUtilities()
-const { cars } = useCars();
+
 useHead({
 
-    title: toTitleCase(route.params.name),
-});
-
-
-//
-definePageMeta({
-    layout: "custom",
-});
-
-const car = computed(() => {
-    return cars.find((c) => {
-        return c.id == parseInt(route.params.id);
-    });
+    title: toTitleCase(route.params.id),
 });
 
 
 
+
+
+/* 
 if (!car.value) {
 
     throw createError({
@@ -29,14 +27,17 @@ if (!car.value) {
         message: `Car with ID of ${route.params.id} does not exits`
     });
 }
+ */
 
-
-
+definePageMeta({
+    layout: "custom",
+});
 
 </script>
 
 <template>
     <div>
+        
         <div v-if="car">
 
             <!-- CAR HERO-->

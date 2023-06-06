@@ -1,25 +1,19 @@
-import cars from "@/data/cars.json"
-export default defineEventHandler((event) =>{
-    console.log("I am hit too")
-    
-    const {id} =  event.context.params;
-    console.log(id)
+import cars from "@/data/cars.json";
 
-    
-    const car = cars.find((c) =>{
-        return c.id===parseInt(id)
-  
+export default defineEventHandler((event) => {
+    const { id } = event.context.params;
+
+    const car = cars.find((c) => {
+        return c.id === parseInt(id)
+    })
+
 
     if(!car){
         throw createError({
             statusCode: 404,
-            statusMessage: `Car with ID of ${id} does not exists`
-        })
+            message: `Car with ID of ${route.params.id} doest not exists`,
+        });
     }
-});
 
-
-
-
-
-});
+    return car;
+})

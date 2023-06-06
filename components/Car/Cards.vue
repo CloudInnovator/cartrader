@@ -1,9 +1,8 @@
-
 <script setup>
 
 const props = defineProps({
-    cars: Array 
-})
+    cars: Array, 
+});
 
 const favorite = useLocalStorage("favorite", {});
 
@@ -28,8 +27,8 @@ const handleFavorite = (id) => {
 
 <template>
 
-    <div class="w-full">
-
+    <div class="">
+        <h1></h1>
 
         <CarCard v-for="car in cars" :key="car.id" :car="car" @favor="handleFavorite" :favoured="car.id in favorite" />
 

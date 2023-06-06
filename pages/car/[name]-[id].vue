@@ -2,6 +2,7 @@
 
 const route = useRoute()
 const {data: car}  = await useFetchCar(route.params.id);
+const user = useSupabaseUser()
 
 const { toTitleCase } = useUtilities()
 useHead({
@@ -22,6 +23,8 @@ definePageMeta({
 
 <template>
     <div>
+
+        {{ user.id }}
         <div v-if="car">
 
             <!-- CAR HERO-->

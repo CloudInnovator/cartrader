@@ -21,6 +21,7 @@
     "@nuxtjs/tailwindcss": "^6.7.0",
     "@vueuse/nuxt": "^9.6.0",
     "add": "^2.0.6",
+    "prisma": "^4.15.0",
     "yarn": "^1.22.19"
   }
 }

@@ -6,7 +6,12 @@ const { data: cars, refresh } = await useFetchCars(route.params.city, {
     make: route.params.make
 });
 
-watch(() => route.query, () => refresh())
+watch(() => route.query, 
+
+() => {
+
+    window.location.reload(true);
+});
 </script>
 <template>
     <div>

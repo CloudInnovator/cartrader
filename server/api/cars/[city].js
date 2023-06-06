@@ -1,16 +1,15 @@
 import cars from "@/data/cars.json"
 export default defineEventHandler((event) => {
+
     console.log("I am hit")
     const { city } = event.context.params;
     const { make, minPrice, maxPrice } = getQuery(event)
 
     let filteredCars = cars
-    
+
     filteredCars = filteredCars.filter((car) => {
-        
+
         return car.city.toLowerCase() === city.toLowerCase()
-
-
     });
 
 
@@ -23,7 +22,7 @@ export default defineEventHandler((event) => {
 
 
     if (minPrice) {
-        
+
         filteredCars = filteredCars.filter((car) => {
             return car.price >= parseInt(minPrice);
         });
@@ -31,7 +30,7 @@ export default defineEventHandler((event) => {
 
 
     if (maxPrice) {
-        
+
         filteredCars = filteredCars.filter((car) => {
             return car.price <= parseInt(maxPrice);
         });

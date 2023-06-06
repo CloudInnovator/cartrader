@@ -25,17 +25,17 @@ if(!minPrice && !maxPrice) return "Any"
 else if(!minPrice && maxPrice)
 
 {
-    return `< $${maxPrice}`
+    return `<$ ${maxPrice}`
 }
 
 else if(minPrice && !maxPrice)
 {
-    return `> $${minPrice}`
+    return `>$ ${minPrice}`
 }
 
 else{
 
-    return `> $${minPrice}-$${maxPrice}`
+    return `>$ ${minPrice} -$ ${maxPrice}`
 }
 
 } );

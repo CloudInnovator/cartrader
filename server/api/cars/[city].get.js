@@ -1,39 +1,45 @@
-import cars from "@/data/cars.json"
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
+
 export default defineEventHandler((event) => {
+
+
 
     console.log("I am hit")
     const { city } = event.context.params;
     const { make, minPrice, maxPrice } = getQuery(event)
 
-    let filteredCars = cars
 
-    filteredCars = filteredCars.filter((car) => {
 
-        return car.city.toLowerCase() === city.toLowerCase()
-    });
+    let filters = {
+        city: city.toLocaleLowerCase()
+    }
 
 
     if (make) {
 
-        filteredCars = filteredCars.filter((car) => {
-            return car.make.toLowerCase() === make.toLocaleLowerCase();
-        });
+        filters.make = make;
+
     }
 
+    if (minPrice || maxPrice) {
+        filters.price = {
 
+        }
+    }
     if (minPrice) {
 
-        filteredCars = filteredCars.filter((car) => {
-            return car.price >= parseInt(minPrice);
-        });
+        filters.price.gte = parseInt(minPrice)
     }
 
 
     if (maxPrice) {
 
-        filteredCars = filteredCars.filter((car) => {
-            return car.price <= parseInt(maxPrice);
-        });
+        filters.price.lte = parseInt(maxPrice)
     }
-    return filteredCars;
+
+    return prisma.car.findMany({
+
+        where: filters
+    });
 });

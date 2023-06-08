@@ -1,4 +1,5 @@
 <script setup>
+
 definePageMeta({
   // layout: "custom",  middleware: [
   // "auth",
@@ -6,6 +7,7 @@ definePageMeta({
 });
 
 const { makes } = useCars();
+const user =  useSupabaseUser()
 
 const info = useState("adInfo", () => {
   return {
@@ -18,9 +20,11 @@ const info = useState("adInfo", () => {
     seats: "",
     features: "",
     description: "",
-    image: null,
+    image: "LKNKNSDLSANDLADLKANDLKSASAUSNMDLK;AL",
   };
 });
+
+const errorMessage = ref("");
 
 const onChangeInput = (data, name) => {
   info.value[name] = data;
@@ -39,31 +43,88 @@ const inputs = [
     name: "year",
     placeholder: "2019",
   },
+
   {
     id: 3,
+    title: "price *",
+    name: "price",
+    placeholder: "10000",
+  },
+  {
+    id: 4,
     title: "Miles *",
     name: "miles",
     placeholder: "10000",
   },
   {
-    id: 4,
+    id: 5,
     title: "City *",
     name: "city",
     placeholder: "Austin",
   },
   {
-    id: 5,
+    id: 6,
     title: "Number of Seats *",
     name: "seats",
     placeholder: "5",
   },
   {
-    id: 6,
+    id: 7,
     title: "Features *",
     name: "features",
     placeholder: "Leather Interior, No Accidents",
   },
 ];
+
+
+const isButtonDisabled = computed(() =>{
+  for (let key in info.value)
+  {
+    if(!info.value[key]) return true;
+  };
+  return false 
+});
+
+const handleSubmit = async () => {
+
+ const body = {
+  ...info.value,
+  city: info.value.city.toLocaleLowerCase(),
+  features: info.value.features.split(","),
+  numberOfSeats: parseInt(info.value.seats),
+  miles: parseInt(info.value.miles),
+  price: parseInt(info.value.price),
+  year: parseInt(info.value.year),
+  name: ` ${info.value.make} ${info.value.model} ` ,
+  listerId: user.value.id,
+  image: "saldmsaldm;lsamdas"
+
+ };
+
+ delete body.seats;
+
+
+ try{
+
+   const response = await $fetch( "/api/car/listings", {
+
+
+    method: "post",
+    body
+   })
+
+   navigateTo('/profile/listings');
+ }
+
+
+ catch (err){
+
+  errorMessage.value= err.statusMessgage;
+
+
+
+ }
+};
 </script>
 
 
@@ -84,6 +145,8 @@ const inputs = [
 
       <CarAdImage @change-input="onChangeInput" />
 
+      <button @click="handleSubmit" :disabled="isButtonDisabled" class="bg-blue-400 text-white rounded py-2 px-7 mt-3"> Submit </button>
+<p v-if="errorMessage" class="mt-3 text-red-400">  {{ errorMessage }}  </p>
     </div>
 
   </div>

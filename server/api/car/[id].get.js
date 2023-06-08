@@ -1,14 +1,21 @@
-import cars from "@/data/cars.json";
+import { PrismaClient } from "@prisma/client";
 
-export default defineEventHandler((event) => {
+const prisma = new PrismaClient();
+
+export default defineEventHandler(async (event) => {
     const { id } = event.context.params;
 
-    const car = cars.find((c) => {
-        return c.id === parseInt(id)
-    })
+    const car = await prisma.car.findUnique({
+
+        where: {
+
+            id: parseInt(id),
+        
+        }
+    });)
 
 
-    if(!car){
+    if (!car) {
         throw createError({
             statusCode: 404,
             message: `Car with ID of ${route.params.id} doest not exists`,
@@ -16,4 +23,4 @@ export default defineEventHandler((event) => {
     }
 
     return car;
-})
+});

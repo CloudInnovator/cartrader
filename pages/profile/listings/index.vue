@@ -7,8 +7,18 @@ definePageMeta({
     ], */
 });
 
+const  user = useSupabaseUser();
 
-const { listings } = useCars()
+const  { data: listings } =  await useFetch( `/api/car/listings/user/${user.value.id}`  );
+
+
+const handleDelete =  async (id) => {  await $fetch(`/api/car/listings/${id}`, {
+        method: "delete"
+    });
+    listings.value =  listings.value.filter((listings) => listings.id !==id);
+    //refresh();
+
+}
 
 
 </script>
@@ -22,12 +32,11 @@ rounded-full text-white font-bold cursor pointer" > Saliha
 </NuxtLink>
 
 
-
     </div>
 
     <div class="shadow rounded p-3 mt-5">
 
-        <CarListingCard v-for="listing in listings" :key="listing.id" :listing="listing" />
+        <CarListingCard v-for="listing in listings" :key="listing.id" :listing="listing" @delete-click="handleDelete"/>
 
 
     </div>

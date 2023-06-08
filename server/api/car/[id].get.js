@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
             id: parseInt(id),
         
         }
-    });)
+    });
 
 
     if (!car) {

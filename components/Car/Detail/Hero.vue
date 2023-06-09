@@ -22,7 +22,7 @@ const props = defineProps({
             <div class="flex">
 
 
-                <p class=" mr-2"> {{ car.seats }} Seats </p>
+                <p class=" mr-2"> {{ car.numberOfSeats }} Seats </p>
 
                 <p class=" mr-2"> | </p>
 

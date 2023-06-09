@@ -2,26 +2,24 @@
 
 definePageMeta({
     layout: "custom",
-/* 
-    middleware: [
-        "auth",
-    ], */
+    /* 
+        middleware: [
+            "auth",
+        ], */
 });
-    </script>
+
+
+const route = useRoute();
+const {data: messages} =  useFetch(`/api/${route.params.id}/message`);
+</script>
 
 
 <template>
+
+    {{ data }}
     <div class="rounded shadow mt-20">
-        <CarMessageCard />
-        <CarMessageCard />
-
-        <CarMessageCard />
-
-        <CarMessageCard />
-
-        <CarMessageCard />
-
-        <CarMessageCard />
+        <CarMessageCard v-for="message in messages"  :key="message.id" :message="message"/>
+        
 
         <div> </div>
     </div>

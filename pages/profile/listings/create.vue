@@ -20,7 +20,7 @@ const info = useState("adInfo", () => {
     seats: "",
     features: "",
     description: "",
-    image: "LKNKNSDLSANDLADLKANDLKSASAUSNMDLK;AL",
+    image: "",
   };
 });
 
@@ -86,7 +86,7 @@ const isButtonDisabled = computed(() =>{
 });
 
 const handleSubmit = async () => {
-
+console.log("handle submit works")
  const body = {
   ...info.value,
   city: info.value.city.toLocaleLowerCase(),
@@ -97,7 +97,7 @@ const handleSubmit = async () => {
   year: parseInt(info.value.year),
   name: ` ${info.value.make} ${info.value.model} ` ,
   listerId: user.value.id,
-  image: "saldmsaldm;lsamdas"
+  image: "dsfdsfdsfdsfds" 
 
  };
 
@@ -106,14 +106,14 @@ const handleSubmit = async () => {
 
  try{
 
-   const response = await $fetch( "/api/car/listings", {
+   const response = await $fetch( '/api/car/listings/', {
 
 
     method: "post",
     body
    })
 
-   navigateTo('/profile/listings');
+   navigateTo('/profile/listings/');
  }
 
 

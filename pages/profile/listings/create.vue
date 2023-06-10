@@ -89,7 +89,7 @@ const handleSubmit = async () => {
   console.log("handle submit works")
 
 
-  const fileName = Math.floor(Math.random() * 10000000000000000000000000000000000000);
+  const fileName = Math.floor(Math.random() * 1000000000000000);
   const { data, error } = await supabase.storage.from("images").upload("public/" + fileName, info.value.image)
   
   if (error) {

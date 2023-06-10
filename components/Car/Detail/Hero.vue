@@ -3,14 +3,14 @@
 const props = defineProps({
     car: Object
 });
+
+const config = useRuntimeConfig();
 </script>
-
-
 <template>
     <div class="mt-10">
 
 
-        <img :src="car.image" class="w-full " alt="" />
+        <img :src="`${config.public.supabase.url }/storage/v1/object/public/images/public/${car.image}`" class="w-full " alt="" />
 
         <h1 class="mt-10 text-4xl"> {{ car.name }}</h1>
 

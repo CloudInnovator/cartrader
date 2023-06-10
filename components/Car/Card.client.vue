@@ -17,6 +17,7 @@ const props = defineProps({
 }) */
 
 const emit = defineEmits(['favor'])
+const config = useRuntimeConfig();
 
 </script>
 
@@ -32,7 +33,7 @@ const emit = defineEmits(['favor'])
         <div class="flex h-full " @click="navigateTo(`/car/${car.name}-${car.id}`)">
 
 
-            <img :src="car.image" alt="" class="w-[300px] h-full" />
+            <img :src= "`${config.public.supabase.url }/storage/v1/object/public/images/public/${car.image}`" alt="" class="w-[300px] h-full" />
 
 
             <div class="p-4 flex flex-col">
